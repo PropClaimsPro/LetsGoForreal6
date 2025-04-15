@@ -1,0 +1,29 @@
+name: skyvaultascendant
+services:
+  - name: skyvault-service
+    github:
+      repo: PropClaimsPro/LetsGoForreal6
+      branch: main
+      deploy_on_push: true
+    envs:
+      - key: WEB3_PROVIDER
+        scope: RUN_AND_BUILD_TIME
+        type: GENERAL
+        value: https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID
+      - key: ETH_WALLET_ADDRESS
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+        value: 0xEe020f2073b899e17f87Deecc5D904E7b1E4fB1d
+      - key: ETH_PRIVATE_KEY
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+        value: your_encrypted_eth_key_here
+      - key: DIGITAL_OCEAN_TOKEN
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+        value: your_encrypted_digitalocean_token_here
+    run_command: gunicorn --bind 0.0.0.0:8080 main:app
+    build_command: pip install -r requirements.txt
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: basic-xs
